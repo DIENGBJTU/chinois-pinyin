@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide 10 — Les Initiales du Pinyin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F7F9FC;color:#1a1a2e;min-height:100vh;display:flex;flex-direction:column}
+header{background:#1B3A6B;color:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between}
+header .logo{font-size:15px;font-weight:700;letter-spacing:.3px}
+header .logo span{color:#7FB3E8;font-size:20px;margin-right:6px}
+header .subtitle{font-size:12px;color:#7FB3E8}
+.container{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px;flex:1;max-width:1200px;margin:0 auto;width:100%}
+@media(max-width:700px){.container{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid #D1DCE8;border-radius:12px;padding:18px}
+.panel-title{font-size:11px;font-weight:700;color:#6B7A99;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px}
+.group-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.gtab{padding:5px 13px;border-radius:20px;border:1px solid #D1DCE8;background:#fff;font-size:12px;cursor:pointer;font-weight:600;color:#6B7A99;transition:all .2s;font-family:inherit}
+.gtab:hover{background:#E8EDF4}
+.gtab.active{background:#1B3A6B;color:#fff;border-color:#1B3A6B}
+.mouth-wrap{display:flex;justify-content:center;align-items:center;padding:8px 0}
+.initials-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.initial-btn{padding:10px 6px;border-radius:8px;border:1px solid #D1DCE8;background:#F7F9FC;cursor:pointer;text-align:center;transition:all .18s;font-family:inherit}
+.initial-btn:hover{border-color:#2E75B6;background:#E8F0F8}
+.initial-btn.active{background:#1B3A6B;border-color:#1B3A6B}
+.initial-btn .zh{font-size:22px;font-weight:700;display:block;color:#1a1a2e}
+.initial-btn.active .zh{color:#fff}
+.initial-btn .pin{font-size:11px;color:#6B7A99;display:block;margin-top:2px}
+.initial-btn.active .pin{color:#BDD7EE}
+.info-card{background:#F7F9FC;border:1px solid #D1DCE8;border-radius:10px;padding:14px;margin-top:4px;min-height:140px}
+.ipa-big{font-size:28px;font-weight:700;color:#1B3A6B}
+.fr-eq{font-size:13px;color:#6B7A99;margin:4px 0 10px;font-style:italic}
+.tip-lbl{font-size:10px;font-weight:700;color:#6B7A99;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.tip-txt{font-size:13px;color:#1a1a2e;line-height:1.55}
+.examples{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.ex-pill{padding:3px 10px;border-radius:20px;background:#D6E4F0;color:#1a4a80;font-size:12px;font-weight:600}
+.group-desc{font-size:12px;color:#2E75B6;margin-bottom:10px;font-style:italic}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid #E8EDF4}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:#6B7A99}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.anim-hint{font-size:11px;color:#2E75B6;text-align:center;margin-top:6px;font-style:italic}
+.pos-badge{display:inline-block;padding:2px 8px;border-radius:4px;background:#D6E4F0;color:#1a4a80;font-size:11px;font-weight:600;margin-bottom:8px}
+.highlight-dot{transition:all .4s;opacity:0}
+.highlight-dot.show{opacity:1}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span>中</span> Séance 1 — Slide 10</div>
+  <div class="subtitle">Les Initiales du Pinyin (声母) — Articulation interactive</div>
+</header>
+
+<div style="padding:12px 20px;max-width:1200px;margin:0 auto;width:100%">
+  <div class="group-tabs" id="group-tabs"></div>
+</div>
+
+<div class="container">
+  <div class="panel">
+    <div class="panel-title">Vue articulatoire — coupe sagittale</div>
+    <div class="mouth-wrap">
+      <svg id="mouth-svg" viewBox="0 0 300 250" width="300" height="250" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="150" cy="125" rx="118" ry="115" fill="#FDE8DC" stroke="#D4A090" stroke-width="0.5"/>
+        <path d="M85 20 Q150 10 215 20 Q225 44 215 54 Q150 46 85 54 Q75 44 85 20Z" fill="#F5C5B0" stroke="#C89888" stroke-width="0.5"/>
+        <text x="150" y="38" text-anchor="middle" font-size="10" fill="#9B6655" font-family="Segoe UI,sans-serif">Cavité nasale</text>
+        <path d="M68 68 Q150 60 232 68 L232 138 Q150 133 68 138Z" fill="#FBDDD3" stroke="#D4A090" stroke-width="0.5"/>
+        <path id="hard-palate" d="M76 70 Q150 62 224 70 Q222 90 150 88 Q78 90 76 70Z" fill="#F5C0AA" stroke="#C89888" stroke-width="0.5"/>
+        <text x="150" y="82" text-anchor="middle" font-size="10" fill="#9B6655" font-family="Segoe UI,sans-serif">Palais dur</text>
+        <path id="soft-palate" d="M92 88 Q150 86 208 88 Q214 110 202 118 Q150 115 98 118 Q86 110 92 88Z" fill="#F0B09A" stroke="#C89888" stroke-width="0.5"/>
+        <text x="150" y="106" text-anchor="middle" font-size="10" fill="#8B4A3A" font-family="Segoe UI,sans-serif">Palais mou (vélum)</text>
+        <path d="M82 140 Q108 128 150 124 Q192 128 218 140 L222 192 Q150 208 78 192Z" fill="#E8907A" stroke="#C07060" stroke-width="0.5"/>
+        <path d="M98 175 Q150 168 202 175 Q208 197 150 202 Q92 197 98 175Z" fill="#D07060" stroke="#B05040" stroke-width="0.5"/>
+        <path id="tongue-body-path" d="M88 145 Q150 138 212 145 Q218 168 150 172 Q82 168 88 145Z" fill="#DC8070" stroke="#B86050" stroke-width="0.5"/>
+        <path id="tongue-tip" d="M104 140 Q150 134 196 140 Q199 150 150 152 Q101 150 104 140Z" fill="#E09080" stroke="#C07060" stroke-width="0.5"/>
+        <text x="150" y="162" text-anchor="middle" font-size="10" fill="#7A3020" font-family="Segoe UI,sans-serif">Langue</text>
+        <path d="M60 165 Q60 212 76 228 Q96 240 150 242 Q204 240 224 228 Q240 212 240 165" fill="#F9D0C0" stroke="#D4A090" stroke-width="0.5"/>
+        <rect id="upper-teeth" x="104" y="133" width="92" height="8" rx="2" fill="white" stroke="#CCC" stroke-width="0.5"/>
+        <rect id="lower-teeth" x="104" y="150" width="92" height="8" rx="2" fill="white" stroke="#CCC" stroke-width="0.5"/>
+        <path id="upper-lip" d="M78 140 Q108 128 150 124 Q192 128 222 140 Q192 134 150 132 Q108 134 78 140Z" fill="#D4786A" stroke="#B06050" stroke-width="0.5"/>
+        <path id="lower-lip" d="M78 158 Q108 166 150 168 Q192 166 222 158 Q192 162 150 164 Q108 162 78 158Z" fill="#D4786A" stroke="#B06050" stroke-width="0.5"/>
+        <path id="lips-closed" d="M78 149 Q150 146 222 149" fill="none" stroke="#B06050" stroke-width="2" opacity="0"/>
+        <ellipse cx="150" cy="120" rx="9" ry="7" fill="#C07060" stroke="#A05040" stroke-width="0.5"/>
+        <circle id="hl-lips"     class="highlight-dot" cx="150" cy="142" r="16" fill="none" stroke="#1B3A6B" stroke-width="3" stroke-dasharray="5 3"/>
+        <circle id="hl-teeth"    class="highlight-dot" cx="150" cy="140" r="20" fill="none" stroke="#1B3A6B" stroke-width="3" stroke-dasharray="5 3"/>
+        <circle id="hl-alveolar" class="highlight-dot" cx="148" cy="130" r="14" fill="none" stroke="#1B3A6B" stroke-width="3" stroke-dasharray="5 3"/>
+        <circle id="hl-palatal"  class="highlight-dot" cx="150" cy="94"  r="13" fill="none" stroke="#1B3A6B" stroke-width="3" stroke-dasharray="5 3"/>
+        <circle id="hl-velar"    class="highlight-dot" cx="168" cy="105" r="15" fill="none" stroke="#C9A84C" stroke-width="3" stroke-dasharray="5 3"/>
+        <circle id="hl-retroflex" class="highlight-dot" cx="148" cy="132" r="18" fill="none" stroke="#C0392B" stroke-width="3" stroke-dasharray="5 3"/>
+        <circle id="hl-sibilant" class="highlight-dot" cx="148" cy="136" r="13" fill="none" stroke="#1B3A6B" stroke-width="3" stroke-dasharray="5 3"/>
+      </svg>
+    </div>
+    <div class="anim-hint" id="anim-hint">Sélectionnez une initiale pour voir la zone active</div>
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="border:2px dashed #1B3A6B;background:transparent"></div> Zone de contact</div>
+      <div class="leg"><div class="leg-dot" style="background:#E09080"></div> Langue</div>
+      <div class="leg"><div class="leg-dot" style="background:#D4786A"></div> Lèvres</div>
+      <div class="leg"><div class="leg-dot" style="background:#F5C0AA"></div> Palais</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">Initiales — sélectionnez pour les détails</div>
+    <div class="group-desc" id="group-desc">Labiales : les lèvres sont l'organe principal</div>
+    <div class="initials-grid" id="initials-grid"></div>
+    <div class="info-card" id="info-card">
+      <div style="font-size:13px;color:#6B7A99;text-align:center;padding-top:20px">
+        Cliquez sur une initiale pour voir la position articulatoire et les conseils de prononciation
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const GROUPS=[
+  {id:"labial",name:"Labiales b p m f",desc:"Labiales : les lèvres sont l'organe principal",
+   initials:[
+    {pin:"b",ipa:"[p]",fr:"Comme 'p' dans 'bonbon' — NON aspiré",pos:"lips",
+     tip:"Fermez les deux lèvres. Relâchez sans souffler d'air. Plus doux que le 'p' français. Astuce : tenez une feuille — elle ne doit PAS bouger.",
+     examples:["bā 八 (huit)","bǎo 宝 (trésor)","běijīng 北京 (Pékin)"]},
+    {pin:"p",ipa:"[pʰ]",fr:"'p' fortement aspiré avec souffle",pos:"lips",
+     tip:"Mêmes lèvres que B mais avec un fort souffle d'air. Tenez une feuille devant votre bouche — elle DOIT bouger franchement !",
+     examples:["pá 爬 (grimper)","péngyǒu 朋友 (ami)","pǔtōnghuà 普通话"]},
+    {pin:"m",ipa:"[m]",fr:"Identique au 'm' français",pos:"lips",
+     tip:"Fermez les lèvres, laissez vibrer le son dans le nez. Identique au français. Facile !",
+     examples:["māma 妈妈 (maman)","mǎ 马 (cheval)","mén 门 (porte)"]},
+    {pin:"f",ipa:"[f]",fr:"Identique au 'f' français",pos:"teeth",
+     tip:"La lèvre inférieure touche légèrement les dents supérieures. Identique au français.",
+     examples:["fēijī 飞机 (avion)","fàn 饭 (riz)","fēng 风 (vent)"]},
+  ]},
+  {id:"dental",name:"Dentales d t n l",desc:"Dentales : la pointe de la langue touche les alvéoles",
+   initials:[
+    {pin:"d",ipa:"[t]",fr:"Comme 't' mais NON aspiré",pos:"alveolar",
+     tip:"Pointe de langue contre la crête alvéolaire (juste derrière les dents du haut). Relâchez sans souffler. Plus doux que le 't' français.",
+     examples:["dà 大 (grand)","dōu 都 (tous)","dàxué 大学 (université)"]},
+    {pin:"t",ipa:"[tʰ]",fr:"'t' fortement aspiré",pos:"alveolar",
+     tip:"Même position que D mais avec un net souffle d'air. Sentez la différence avec D en alternant les deux.",
+     examples:["tā 他 (il)","tiān 天 (ciel)","tóu 头 (tête)"]},
+    {pin:"n",ipa:"[n]",fr:"Identique au 'n' français",pos:"alveolar",
+     tip:"Pointe de langue contre les alvéoles, air sort par le nez. Identique au français.",
+     examples:["nǐ 你 (tu)","nán 南 (sud)","nǎi 奶 (lait)"]},
+    {pin:"l",ipa:"[l]",fr:"Identique au 'l' français",pos:"alveolar",
+     tip:"La pointe de la langue touche les alvéoles, l'air s'échappe sur les côtés. Identique au français.",
+     examples:["lǎo 老 (vieux)","lái 来 (venir)","lù 路 (route)"]},
+  ]},
+  {id:"velar",name:"Vélaires g k h",desc:"Vélaires : l'arrière de la langue remonte vers le vélum",
+   initials:[
+    {pin:"g",ipa:"[k]",fr:"Comme 'g' dans 'gare' — NON aspiré",pos:"velar",
+     tip:"L'arrière de la langue remonte pour toucher le palais mou (vélum). Pas de souffle d'air — plus doux que 'k' français.",
+     examples:["gè 个 (classificateur)","gōng 工 (travail)","guójiā 国家 (pays)"]},
+    {pin:"k",ipa:"[kʰ]",fr:"'k' fortement aspiré",pos:"velar",
+     tip:"Même position arrière de langue contre le vélum mais avec un souffle fort. La différence G/K est cruciale en chinois.",
+     examples:["kāi 开 (ouvrir)","kěyǐ 可以 (pouvoir)","kùn 困 (fatigué)"]},
+    {pin:"h",ipa:"[x]",fr:"Frottement vélaire — comme 'j' espagnol",pos:"velar",
+     tip:"L'arrière de la langue se rapproche du vélum SANS toucher. Friction dans la gorge — entre 'h' et 'r' français. Essayez de dire 'kh' en arabe.",
+     examples:["hǎo 好 (bon)","hé 和 (et)","huà 话 (parole)"]},
+  ]},
+  {id:"palatal",name:"Palatales j q x",desc:"Palatales : le milieu de la langue monte vers le palais dur",
+   initials:[
+    {pin:"j",ipa:"[tɕ]",fr:"Comme 'dj' — non aspiré, lèvres étirées",pos:"palatal",
+     tip:"Le milieu de la langue remonte vers le palais dur. Lèvres étirées comme pour sourire. JAMAIS devant a, o, u — seulement devant i et ü.",
+     examples:["jī 鸡 (poulet)","jiā 家 (famille)","jīntiān 今天 (aujourd'hui)"]},
+    {pin:"q",ipa:"[tɕʰ]",fr:"'tch' aspiré avec fort souffle",pos:"palatal",
+     tip:"Même position que J mais avec aspiration forte. Imaginez dire 'tch!' avec surprise et beaucoup d'air.",
+     examples:["qù 去 (aller)","qǐng 请 (s'il vous plaît)","qián 钱 (argent)"]},
+    {pin:"x",ipa:"[ɕ]",fr:"Fricative palatale — entre 'ch' et 'sh'",pos:"palatal",
+     tip:"Air qui frotte contre le palais dur. Plus léger que le 'ch' français, plus avancé. Essayez de dire 'ch' en reculant légèrement la langue.",
+     examples:["xiè 谢 (merci)","xuéxí 学习 (étudier)","xiǎo 小 (petit)"]},
+  ]},
+  {id:"retroflex",name:"Rétroflexes zh ch sh r",desc:"Rétroflexes : la pointe de la langue se recourbe vers l'arrière",
+   initials:[
+    {pin:"zh",ipa:"[ʈʂ]",fr:"'dj' avec langue recourbée vers l'arrière",pos:"retroflex",
+     tip:"CRUCIAL : recourbez la POINTE de la langue vers le palais dur en arrière. C'est le mouvement rétroflexe unique au mandarin. Pratiquez la position avant de faire le son.",
+     examples:["zhōng 中 (milieu)","zhè 这 (ce)","zhōngguó 中国 (Chine)"]},
+    {pin:"ch",ipa:"[ʈʂʰ]",fr:"ZH + aspiration forte",pos:"retroflex",
+     tip:"Même recourbe de langue que ZH mais ajoutez un souffle d'air net. Alternez ZH et CH pour sentir la différence.",
+     examples:["chī 吃 (manger)","chē 车 (voiture)","chūkǒu 出口 (exportation)"]},
+    {pin:"sh",ipa:"[ʂ]",fr:"'ch' français avec langue recourbée",pos:"retroflex",
+     tip:"La pointe de la langue pointe vers l'arrière sans toucher le palais. L'air sort en frottant. Ressemble à 'sh' anglais mais plus en arrière dans la bouche.",
+     examples:["shì 是 (être)","shí 十 (dix)","shāngchǎng 商场 (centre commercial)"]},
+    {pin:"r",ipa:"[ɻ]",fr:"Son unique — entre 'r' et 'zh'",pos:"retroflex",
+     tip:"Langue recourbée, vibration légère. Son sans équivalent en français. Commencez par 'j' anglais (comme dans 'jam') et recourbez progressivement. Avec de la pratique !",
+     examples:["rén 人 (personne)","rì 日 (soleil/jour)","rúguǒ 如果 (si)"]},
+  ]},
+  {id:"sibilant",name:"Sibilantes z c s",desc:"Sibilantes : langue plate, proche des dents inférieures",
+   initials:[
+    {pin:"z",ipa:"[ts]",fr:"Comme 'dz' dans 'pizza' — non aspiré",pos:"sibilant",
+     tip:"La pointe de la langue touche brièvement les dents inférieures. Son 'ts' bref sans aspiration. Comme 'za' en japonais.",
+     examples:["zài 在 (être à)","zǎo 早 (matin)","zìjǐ 自己 (soi-même)"]},
+    {pin:"c",ipa:"[tsʰ]",fr:"'ts' fortement aspiré",pos:"sibilant",
+     tip:"Même position que Z avec un souffle d'air prononcé. Comme 'ts' dans 'tsunami' en japonais.",
+     examples:["cài 菜 (légume)","cóng 从 (depuis)","cuò 错 (erreur)"]},
+    {pin:"s",ipa:"[s]",fr:"Identique au 's' français",pos:"sibilant",
+     tip:"La pointe de la langue s'approche des dents sans toucher. Son 's' clair — identique au français. Facile !",
+     examples:["shuō 说 (dire)","sān 三 (trois)","sèněijiā'ěr 塞内加尔 (Sénégal)"]},
+  ]},
+];
+
+const POSITIONS={
+  lips:{hl:"hl-lips"},teeth:{hl:"hl-teeth"},alveolar:{hl:"hl-alveolar"},
+  palatal:{hl:"hl-palatal"},velar:{hl:"hl-velar"},retroflex:{hl:"hl-retroflex"},sibilant:{hl:"hl-sibilant"}
+};
+
+const POS_LABELS={
+  lips:"Zone : lèvres",teeth:"Zone : lèvres + dents",alveolar:"Zone : alvéoles (derrière incisives)",
+  palatal:"Zone : palais dur",velar:"Zone : vélum (palais mou)",retroflex:"Zone : rétroflexe",sibilant:"Zone : dents inférieures"
+};
+
+let curGroup=GROUPS[0],curInitial=null;
+
+function buildGroupTabs(){
+  document.getElementById('group-tabs').innerHTML=GROUPS.map(g=>`<button class="gtab${g===curGroup?' active':''}" onclick="selGroup('${g.id}')">${g.name}</button>`).join('');
+}
+
+function buildGrid(){
+  const cols=curGroup.initials.length<=3?3:4;
+  const el=document.getElementById('initials-grid');
+  el.style.gridTemplateColumns=`repeat(${cols},1fr)`;
+  el.innerHTML=curGroup.initials.map(ini=>`
+    <button class="initial-btn${ini===curInitial?' active':''}" onclick="selInitial('${ini.pin}')">
+      <span class="zh">${ini.pin}</span>
+      <span class="pin">${ini.ipa}</span>
+    </button>`).join('');
+  document.getElementById('group-desc').textContent=curGroup.desc;
+}
+
+function selGroup(id){
+  curGroup=GROUPS.find(g=>g.id===id);curInitial=null;
+  buildGroupTabs();buildGrid();resetHL();
+  document.getElementById('info-card').innerHTML='<div style="font-size:13px;color:#6B7A99;text-align:center;padding-top:20px">Cliquez sur une initiale pour voir les détails</div>';
+  document.getElementById('anim-hint').textContent='Sélectionnez une initiale pour voir la zone active';
+}
+
+function selInitial(pin){
+  curInitial=curGroup.initials.find(i=>i.pin===pin);
+  buildGrid();showInfo();animateMouth();
+}
+
+function showInfo(){
+  if(!curInitial)return;
+  const i=curInitial;
+  document.getElementById('info-card').innerHTML=`
+    <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px">
+      <span class="ipa-big">${i.pin}</span>
+      <span style="font-size:18px;color:#2E75B6">${i.ipa}</span>
+      <span class="pos-badge">${POS_LABELS[i.pos]||''}</span>
+    </div>
+    <div class="fr-eq">${i.fr}</div>
+    <div class="tip-lbl">Comment articuler</div>
+    <div class="tip-txt">${i.tip}</div>
+    <div class="examples">${i.examples.map(e=>`<span class="ex-pill">${e}</span>`).join('')}</div>
+  `;
+}
+
+function resetHL(){
+  ['hl-lips','hl-teeth','hl-alveolar','hl-palatal','hl-velar','hl-retroflex','hl-sibilant'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.classList.remove('show');
+  });
+}
+
+function animateMouth(){
+  if(!curInitial)return;
+  resetHL();
+  const pos=curInitial.pos||'alveolar';
+  const hlId=POSITIONS[pos]?.hl;
+  if(hlId)setTimeout(()=>{const el=document.getElementById(hlId);if(el)el.classList.add('show');},80);
+  document.getElementById('anim-hint').textContent=POS_LABELS[pos]||'';
+  const tb=document.getElementById('tongue-body-path');
+  const tt=document.getElementById('tongue-tip');
+  if(pos==='retroflex'){
+    tt.setAttribute('d','M104 126 Q128 118 158 124 Q175 132 196 136 Q199 148 166 150 Q136 148 110 142 Q102 134 104 126Z');
+    tb.setAttribute('d','M86 138 Q128 128 202 140 Q212 160 150 168 Q86 162 86 138Z');
+  }else if(pos==='palatal'){
+    tt.setAttribute('d','M104 135 Q150 124 196 135 Q199 145 175 150 Q150 154 125 150 Q101 145 104 135Z');
+    tb.setAttribute('d','M88 142 Q150 130 212 142 Q217 162 150 168 Q83 162 88 142Z');
+  }else if(pos==='velar'){
+    tt.setAttribute('d','M108 144 Q150 140 192 144 Q195 153 150 155 Q105 153 108 144Z');
+    tb.setAttribute('d','M88 148 Q150 138 208 148 Q212 172 166 178 Q150 182 134 178 Q108 174 88 168Z');
+  }else{
+    tt.setAttribute('d','M104 140 Q150 134 196 140 Q199 150 150 152 Q101 150 104 140Z');
+    tb.setAttribute('d','M88 145 Q150 138 212 145 Q218 168 150 172 Q82 168 88 145Z');
+  }
+  if(['b','p','m'].includes(curInitial.pin)){
+    document.getElementById('upper-lip').setAttribute('d','M78 140 Q108 130 150 127 Q192 130 222 140 Q196 136 150 134 Q104 136 78 140Z');
+    document.getElementById('lower-lip').setAttribute('d','M78 154 Q108 151 150 149 Q192 151 222 154 Q196 156 150 157 Q104 156 78 154Z');
+    document.getElementById('lips-closed').style.opacity='0.9';
+  }else{
+    document.getElementById('upper-lip').setAttribute('d','M78 140 Q108 128 150 124 Q192 128 222 140 Q192 134 150 132 Q108 134 78 140Z');
+    document.getElementById('lower-lip').setAttribute('d','M78 158 Q108 166 150 168 Q192 166 222 158 Q192 162 150 164 Q108 162 78 158Z');
+    document.getElementById('lips-closed').style.opacity='0';
+  }
+}
+
+buildGroupTabs();buildGrid();
+</script>
+</body>
+</html>
